@@ -116,28 +116,32 @@
         }
         /* Form Styling */
         form {
-            background-color: #131315; /* Same as service boxes */
+            background-color: #131315;
             padding: 20px;
             margin-top: 20px;
             border-radius: 8px;
-            text-align: left;
+            text-align: center; /* Centering text within form */
         }
         form input, form textarea {
             display: block;
             width: 100%;
             margin-bottom: 10px;
             padding: 10px;
-            border: 1px solid white;
-            background-color: #131315; /* Same as service boxes */
-            color: white;
+            border: 1px solid #a9a9a9;
+            background-color: #131315;
+            color: #a9a9a9;
             box-sizing: border-box;
+            text-align: center; /* Center text in input fields */
         }
         form input::placeholder, form textarea::placeholder {
-            color: white;
-            opacity: 1; /* Firefox */
+            color: #a9a9a9;
+            opacity: 1;
         }
         form input:focus::placeholder, form textarea:focus::placeholder {
             color: transparent;
+        }
+        form textarea {
+            height: 150px; /* Larger message area */
         }
         form button {
             background: #013E7C;
@@ -146,6 +150,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin: 0 auto; /* Center the button */
+            display: block; /* Ensure it behaves like a block element for centering */
         }
         #formFeedback {
             display: none;
