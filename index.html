@@ -12,18 +12,21 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: flex-start; /* Changed from center to flex-start */
+            min-height: 100vh; /* Changed from height to min-height */
             color: white;
-            flex-direction: column;
+            box-sizing: border-box;
         }
         .container {
             text-align: center;
             max-width: 800px;
+            width: 100%; /* Ensure it takes full width if needed */
             padding: 20px;
+            box-sizing: border-box;
         }
         h1 {
             font-size: 2.5em;
+            margin-top: 20px; /* Added more space at the top */
             margin-bottom: 10px;
         }
         p {
@@ -31,40 +34,18 @@
             font-size: 1.2em;
             margin-top: 0;
         }
+        img {
+            max-width: 100%; /* Ensure the image is responsive */
+            height: auto;
+            margin: 20px 0;
+            display: block; /* This can help with layout issues */
+        }
         .services-title {
             font-size: 2em;
             margin-top: 20px;
         }
         .service-box {
-            background-color: #131315;
-            margin: 10px;
-            padding: 15px;
-            width: 200px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: height 0.3s ease;
-            overflow: hidden;
-        }
-        .service-box h3 {
-            color: white;
-            font-size: 2em;
-            margin: 0;
-        }
-        .service-box p {
-            color: #a9a9a9;
-            font-size: 1em;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            margin: 10px 0 0 0;
-        }
-        .service-box.expanded {
-            height: auto;
-        }
-        .service-box.expanded p {
-            opacity: 1;
+            /* ... existing styles ... */
         }
     </style>
 </head>
@@ -73,39 +54,13 @@
 <div class="container">
     <h1>0xKeychain</h1>
     <p>Secure your digital future</p>
-    <!-- Placeholder for your logo -->
-    <img src="lock.jpg" alt="0xKeychain Logo" style="max-width: 200px; height: auto; margin: 20px 0;">
+    <img src="path/to/your/logo.png" alt="0xKeychain Logo">
     <h2 class="services-title">Services</h2>
-    <div class="services-container">
-        <div class="service-box">
-            <h3>Title 1</h3>
-            <p>Description for service 1 goes here.</p>
-        </div>
-        <div class="service-box">
-            <h3>Title 2</h3>
-            <p>Description for service 2 goes here.</p>
-        </div>
-        <div class="service-box">
-            <h3>Title 3</h3>
-            <p>Description for service 3 goes here.</p>
-        </div>
-        <div class="service-box">
-            <h3>Title 4</h3>
-            <p>Description for service 4 goes here.</p>
-        </div>
-    </div>
+    <!-- Service boxes here -->
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const boxes = document.querySelectorAll('.service-box');
-        
-        boxes.forEach(box => {
-            box.addEventListener('click', function() {
-                this.classList.toggle('expanded');
-            });
-        });
-    });
+    /* ... existing JavaScript ... */
 </script>
 
 </body>
