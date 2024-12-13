@@ -36,7 +36,7 @@
             margin-top: 0;
         }
         img {
-            width: 100%;
+            width: 100%; /* Will match the width of h1 */
             max-width: 100%;
             height: auto;
             margin: 20px 0;
@@ -55,14 +55,15 @@
             background-color: #131315;
             margin: 10px;
             padding: 15px;
-            width: calc(100% - 40px); /* Full width minus margins */
-            max-width: 800px; /* Ensures it doesn't get too wide */
+            width: calc(100% - 40px);
+            max-width: 800px;
             box-sizing: border-box;
             display: flex;
-            flex-direction: column; /* Stack title and description vertically */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            height: 80px; /* Initial height */
             transition: height 0.3s ease;
             overflow: hidden;
         }
@@ -79,12 +80,16 @@
             transition: opacity 0.3s ease;
             margin: 10px 0 0 0;
             text-align: center;
+            max-height: 0; /* Initially hidden */
+            overflow: hidden;
         }
         .service-box.expanded {
-            height: auto;
+            height: auto; /* Height will grow to fit content */
         }
         .service-box.expanded p {
             opacity: 1;
+            max-height: 500px; /* Allow the text to show */
+            transition: max-height 0.3s ease, opacity 0.3s ease;
         }
     </style>
 </head>
@@ -93,7 +98,7 @@
 <div class="container">
     <h1>0xKeychain</h1>
     <p>Secure your digital future</p>
-    <img src="lock.jpg" alt="0xKeychain Logo">
+    <img src="path/to/your/logo.png" alt="0xKeychain Logo">
     <h2 class="services-title">Services</h2>
     <div class="services-container">
         <div class="service-box">
