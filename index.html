@@ -36,11 +36,10 @@
             margin-top: 0;
         }
         img {
-            width: 100%; /* Will match the width of h1 */
-            max-width: 50%;
+            max-width: 35%;
             height: auto;
-            margin: 20px 0;
-            display: block;
+            margin: 20px auto; /* Added 'auto' for horizontal centering */
+            display: block; /* Ensures margin: auto works for centering */
         }
         .services-title {
             font-size: 2em;
@@ -63,7 +62,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            height: 80px; /* Initial height */
+            height: 80px;
             transition: height 0.3s ease;
             overflow: hidden;
         }
@@ -80,15 +79,15 @@
             transition: opacity 0.3s ease;
             margin: 10px 0 0 0;
             text-align: center;
-            max-height: 0; /* Initially hidden */
+            max-height: 0;
             overflow: hidden;
         }
         .service-box.expanded {
-            height: auto; /* Height will grow to fit content */
+            height: auto;
         }
         .service-box.expanded p {
             opacity: 1;
-            max-height: 500px; /* Allow the text to show */
+            max-height: 500px;
             transition: max-height 0.3s ease, opacity 0.3s ease;
         }
     </style>
