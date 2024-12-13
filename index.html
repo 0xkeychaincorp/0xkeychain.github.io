@@ -41,7 +41,7 @@
             margin: 20px auto;
             display: block;
         }
-        .services-title {
+        .services-title, .contact-title {
             font-size: 2em;
             margin-top: 20px;
         }
@@ -65,7 +65,7 @@
             height: 80px;
             transition: height 0.3s ease;
             overflow: hidden;
-            position: relative; /* Added for positioning the circle */
+            position: relative;
         }
         .service-box h3 {
             color: white;
@@ -92,8 +92,7 @@
             max-height: 500px;
             transition: max-height 0.3s ease, opacity 0.3s ease;
         }
-        /* Circle with arrow */
-        .service-box::after {
+        .service-box::after, .service-box::before {
             content: '';
             position: absolute;
             right: 15px;
@@ -107,16 +106,55 @@
         }
         .service-box::before {
             content: '▼';
-            position: absolute;
-            right: 19px;
-            top: 50%;
-            transform: translateY(-50%);
             color: white;
             z-index: 1;
             font-size: 12px;
+            background: none;
         }
         .service-box.expanded::before {
             content: '▲';
+        }
+        /* Contact Form Styling */
+        form {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        form label, form input, form textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        form input, form textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form textarea {
+            height: 100px;
+        }
+        form button {
+            background: #013E7C;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #formFeedback {
+            display: none;
+            color: white;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
         }
     </style>
 </head>
@@ -145,18 +183,66 @@
             <p>Description for service 4 goes here.</p>
         </div>
     </div>
+    <h2 class="contact-title">Contact Now</h2>
+    <form id="contactForm" action="send_email.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone">
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+        
+        <button type="submit">Send</button>
+    </form>
+    <div id="formFeedback"></div>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const boxes = document.querySelectorAll('.service-box');
-        
-        boxes.forEach(box => {
-            box.addEventListener('click', function() {
-                this.classList.toggle('expanded');
-            });
+document.addEventListener('DOMContentLoaded', (event) => {
+    const boxes = document.querySelectorAll('.service-box');
+    
+    boxes.forEach(box => {
+        box.addEventListener('click', function() {
+            this.classList.toggle('expanded');
         });
     });
+
+    const form = document.getElementById('contactForm');
+    const feedback = document.getElementById('formFeedback');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('send_email.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            if(data === 'success') {
+                feedback.textContent = 'Thank you, your message has been sent!';
+                feedback.className = 'success';
+                form.reset();
+                form.style.display = 'none';
+            } else {
+                feedback.textContent = 'There was an error sending your message.';
+                feedback.className = 'error';
+            }
+            feedback.style.display = 'block';
+        })
+        .catch(error => {
+            feedback.textContent = 'An error occurred. Please try again.';
+            feedback.className = 'error';
+            feedback.style.display = 'block';
+        });
+    });
+});
 </script>
 
 </body>
