@@ -69,7 +69,7 @@
         }
         .service-box h3 {
             color: white;
-            font-size: 2em;
+            font-size: 1.5em; /* Smaller than services title */
             margin: 0;
             text-align: center;
             width: 100%;
@@ -92,27 +92,17 @@
             max-height: 500px;
             transition: max-height 0.3s ease, opacity 0.3s ease;
         }
-        .service-box::after, .service-box::before {
-            content: '';
+        .service-box::after {
+            content: '▼'; /* Down triangle */
             position: absolute;
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            background-color: #013E7C;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .service-box::before {
-            content: '▼';
-            color: white;
-            z-index: 1;
+            color: #013E7C; /* Same color as the circles */
             font-size: 12px;
-            background: none;
         }
-        .service-box.expanded::before {
-            content: '▲';
+        .service-box.expanded::after {
+            content: '▲'; /* Up triangle */
         }
         /* Form Styling */
         form {
@@ -120,18 +110,18 @@
             padding: 20px;
             margin-top: 20px;
             border-radius: 8px;
-            text-align: center; /* Centering text within form */
+            text-align: center;
         }
         form input, form textarea {
             display: block;
             width: 100%;
             margin-bottom: 10px;
-            padding: 10px;
+            padding: 16px; /* Increased size of form fields */
             border: 1px solid #a9a9a9;
             background-color: #131315;
             color: #a9a9a9;
             box-sizing: border-box;
-            text-align: center; /* Center text in input fields */
+            text-align: center;
         }
         form input::placeholder, form textarea::placeholder {
             color: #a9a9a9;
@@ -141,7 +131,7 @@
             color: transparent;
         }
         form textarea {
-            height: 150px; /* Larger message area */
+            height: 150px;
         }
         form button {
             background: #013E7C;
@@ -150,8 +140,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin: 0 auto; /* Center the button */
-            display: block; /* Ensure it behaves like a block element for centering */
+            margin: 0 auto;
+            display: block;
         }
         #formFeedback {
             display: none;
@@ -239,12 +229,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         })
         .catch(error => {
             feedback.textContent = 'An error occurred. Please try again.';
-            feedback.className = 'error';
             feedback.style.display = 'block';
         });
     });
 
-    // Placeholder removal on focus
     const inputs = document.querySelectorAll('input, textarea');
     inputs.forEach(input => {
         input.addEventListener('focus', function() {
