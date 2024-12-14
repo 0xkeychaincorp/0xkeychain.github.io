@@ -41,8 +41,12 @@
             margin: 20px auto;
             display: block;
         }
-        .services-title, .contact-title {
+        .services-title {
             font-size: 2em;
+            margin-top: 20px;
+        }
+        .contact-title {
+            font-size: 1.75em; /* Adjusted size for "Contact Now" */
             margin-top: 20px;
         }
         .services-container {
@@ -76,6 +80,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            z-index: 1; /* Ensure title is above the text */
         }
         .service-box p {
             color: #a9a9a9;
@@ -86,6 +91,7 @@
             text-align: center;
             max-height: 0;
             overflow: hidden;
+            padding-top: 20px; /* Space for the title when expanded */
         }
         .service-box.expanded {
             height: auto;
@@ -124,6 +130,7 @@
             color: #a9a9a9;
             box-sizing: border-box;
             text-align: center;
+            font-size: 1.1em; /* Increased font size for input labels */
         }
         form input::placeholder, form textarea::placeholder {
             color: #a9a9a9;
