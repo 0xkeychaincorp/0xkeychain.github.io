@@ -198,7 +198,49 @@
 </div>
 
 <script>
-// ... (previous script content remains unchanged) ...
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+
+    const boxes = document.querySelectorAll('.service-box');
+    
+    boxes.forEach(box => {
+        box.addEventListener('click', function() {
+            console.log('Box clicked:', this);
+            this.classList.toggle('expanded');
+            console.log('Class expanded toggled:', this.classList.contains('expanded'));
+        });
+    });
+
+    const form = document.getElementById('contactForm');
+    const feedback = document.getElementById('formFeedback');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('send_email.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            if(data === 'success') {
+                feedback.textContent = 'Thank you, your message has been sent!';
+                feedback.className = 'success';
+                form.reset();
+                form.style.display = 'none';
+            } else {
+                feedback.textContent = 'There was an error sending your message.';
+                feedback.className = 'error';
+            }
+            feedback.style.display = 'block';
+        })
+        .catch(error => {
+            feedback.textContent = 'An error occurred. Please try again.';
+            feedback.style.display = 'block';
+        });
+    });
+});
 </script>
 
 </body>
