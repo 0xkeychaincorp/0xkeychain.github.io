@@ -21,7 +21,7 @@
             text-align: center;
             max-width: 800px;
             width: 100%;
-            padding: 20px;
+            padding: 10px 20px; /* Adjusted padding */
             box-sizing: border-box;
         }
         h1 {
@@ -41,13 +41,10 @@
             margin: 20px auto;
             display: block;
         }
-        .services-title {
+        .services-title, .contact-title {
             font-size: 2em;
             margin-top: 20px;
-        }
-        .contact-title {
-            font-size: 1.75em;
-            margin-top: 20px;
+            margin-bottom: 10px; /* Adjusted margin to match both sections */
         }
         .services-container {
             display: flex;
@@ -77,6 +74,7 @@
             margin: 0;
             text-align: center;
             width: 100%;
+            position: relative; /* Ensures positioning context for the arrow */
         }
         .service-box p {
             color: #a9a9a9;
@@ -88,6 +86,17 @@
             max-height: 0;
             overflow: hidden;
         }
+        .service-box::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            top: 15px; /* Position at the top with the title */
+            color: #013E7C;
+            font-size: 15px;
+        }
+        .service-box.expanded::after {
+            content: '▲';
+        }
         .service-box.expanded {
             height: auto;
         }
@@ -96,22 +105,10 @@
             max-height: 500px;
             transition: max-height 0.3s ease, opacity 0.3s ease;
         }
-        .service-box::after {
-            content: '▼';
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #013E7C;
-            font-size: 15px;
-        }
-        .service-box.expanded::after {
-            content: '▲';
-        }
         form {
             background-color: #131315;
             padding: 20px;
-            margin-top: 20px;
+            margin-top: 10px; /* Adjusted margin to be closer to the title */
             border-radius: 8px;
             text-align: center;
         }
