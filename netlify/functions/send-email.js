@@ -1,19 +1,23 @@
-// netlify/functions/send-email.js
 const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+    host: '127.0.0.1',
+    port: 1025,
+    secure: false,
+    auth: {
+        user: process.env.PROTON_EMAIL,
+        pass: process.env.PROTON_PASSWORD
+    }
+});
 
 exports.handler = async function(event, context) {
     const body = JSON.parse(event.body);
-    // Set up email transport and send email here
-    // Example:
-    const transporter = nodemailer.createTransport({
-        // Your email service configuration here
-    });
-
+    
     const mailOptions = {
-        from: 'Your Site <your-email@example.com>',
-        to: 'recipient@example.com',
-        subject: 'New Message from Contact Form',
-        text: `From: ${body.name} \nEmail: ${body.email} \nPhone: ${body.phone} \nMessage: ${body.message}`
+        from: `"Your Site" <${process.env.PROTON_EMAIL}>`,
+        to: '0xkeychain@proton.me',
+        subject: 'New Contact Form Submission',
+        text: `Name: ${body.name}\nEmail: ${body.email}\nPhone: ${body.phone}\nMessage: ${body.message}`
     };
 
     try {
@@ -23,9 +27,10 @@ exports.handler = async function(event, context) {
             body: JSON.stringify({ message: 'success' })
         };
     } catch (error) {
+        console.error('Error sending email:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'error', error: error.toString() })
+            body: JSON.stringify({ message: 'error', error: error.message })
         };
     }
 };
