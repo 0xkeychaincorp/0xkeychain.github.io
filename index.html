@@ -185,7 +185,7 @@
         </div>
     </div>
     <h2 class="contact-title">Contact Now</h2>
-    <form action="https://formspree.io/f/xldekqjr" method="POST">
+    <form action="YOUR_SCRIPT_URL" method="POST">
         <input type="text" id="name" name="name" required placeholder="Name">
         <input type="email" id="email" name="email" required placeholder="Email">
         <input type="tel" id="phone" name="phone" placeholder="Phone Number">
@@ -197,15 +197,11 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', (event) => {
-    console.log('DOM fully loaded and parsed');
-
     const boxes = document.querySelectorAll('.service-box');
     
     boxes.forEach(box => {
         box.addEventListener('click', function() {
-            console.log('Box clicked:', this);
             this.classList.toggle('expanded');
-            console.log('Class expanded toggled:', this.classList.contains('expanded'));
         });
     });
 
@@ -214,13 +210,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        // Here we just simulate a submission feedback since Formspree handles the actual submission
         feedback.textContent = 'Thank you, your message is being sent!';
         feedback.className = 'success';
         feedback.style.display = 'block';
         form.reset();
-        // Uncomment the line below if you want to hide the form after submission
-        // form.style.display = 'none';
     });
 });
 </script>
