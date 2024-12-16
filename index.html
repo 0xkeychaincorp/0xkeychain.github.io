@@ -234,13 +234,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             method: 'POST',
             body: new FormData(form),
             mode: 'no-cors'
-        })
-        .then(() => {
+        }).then(() => {
             loader.style.display = 'none';
             thankYouMessage.style.display = 'block';
             document.querySelector('.container').scrollIntoView({ behavior: "smooth", block: "end" });
-        })
-        .catch((error) => {
+        }).catch((error) => {
             console.error('Form submission error:', error);
             feedback.textContent = 'An error occurred. Please try again.';
             feedback.style.display = 'block';
@@ -249,7 +247,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             loader.style.display = 'none';
         });
 
-        return false; // Prevent the form from submitting normally
+        return false; // Prevent the form from redirecting
     }
 });
 </script>
