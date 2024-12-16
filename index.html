@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keychain Advisory</title>
+    <title>0xKeychain</title>
     <style>
         body {
             background-color: #000317;
@@ -165,8 +165,8 @@
             100% { transform: rotate(360deg); }
         }
         #thankYouMessage {
-            font-size: 1.5em; /* Reduced from 2.5em */
-            padding: 20px 0; /* Reduced from 40px */
+            font-size: 1.5em;
+            padding: 40px 0;
             display: none;
         }
     </style>
@@ -176,7 +176,7 @@
 <div class="container">
     <h1>Keychain Advisory</h1>
     <p>Secure your digital future</p>
-    <img src="lock.jpg" alt="Keychain Advisory Logo">
+    <img src="lock.jpg" alt="0xKeychain Logo">
     <h2 class="services-title">Services</h2>
     <div class="services-container">
         <div class="service-box">
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        loader.style.display = 'block'; // Show loader immediately
+        loader.style.display = 'block';
         form.style.display = 'none';
         contactTitle.style.display = 'none';
         feedback.style.display = 'none';
@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (response.ok) {
                 const data = await response.text();
                 console.log('Data:', data);
-                loader.style.display = 'none'; // Hide loader after success
+                loader.style.display = 'none';
                 thankYouMessage.style.display = 'block';
                 document.querySelector('.container').scrollIntoView({ behavior: "smooth", block: "end" });
             } else {
@@ -251,9 +251,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.error('Fetch error:', error);
             feedback.textContent = 'An error occurred. Please try again.';
             feedback.style.display = 'block';
-            form.style.display = 'block'; // Show form back if there's an error
+            form.style.display = 'block';
             contactTitle.style.display = 'block';
-            loader.style.display = 'none'; // Hide loader on error
+            loader.style.display = 'none';
         }
     });
 });
