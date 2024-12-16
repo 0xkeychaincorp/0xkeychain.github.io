@@ -201,6 +201,7 @@
     </form>
     <div id="formFeedback"></div>
     <div id="loader" style="display: none;"></div>
+    <div id="thankYouMessage" style="display: none;">Thank you, we will contact you shortly.</div>
 </div>
 
 <script>
@@ -210,6 +211,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const feedback = document.getElementById('formFeedback');
     const loader = document.getElementById('loader');
     const contactTitle = document.getElementById('contactTitle');
+    const thankYouMessage = document.getElementById('thankYouMessage');
 
     boxes.forEach(box => {
         box.addEventListener('click', function() {
@@ -222,13 +224,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         loader.style.display = 'block';
         form.style.display = 'none';
         contactTitle.style.display = 'none';
-
-        // Simulate submission delay
-        setTimeout(() => {
-            loader.style.display = 'none';
-            feedback.textContent = 'Thank you, we will contact you shortly.';
-            feedback.style.display = 'block';
-        }, 2000); // Simulates a 2 second delay for submission
+        feedback.style.display = 'none';
 
         // Send form data
         fetch(form.action, {
@@ -238,6 +234,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
+            loader.style.display = 'none';
+            thankYouMessage.style.display = 'block';
+            document.querySelector('.container').scrollIntoView({ behavior: "smooth", block: "end" });
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -245,6 +244,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             feedback.style.display = 'block';
             form.style.display = 'block'; // Show form back if there's an error
             contactTitle.style.display = 'block';
+            loader.style.display = 'none';
         });
     });
 });
