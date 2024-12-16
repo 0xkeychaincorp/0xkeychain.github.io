@@ -231,15 +231,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
             method: 'POST',
             body: new FormData(form)
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log('Response status:', response.status);
+            // Check the response status for success
+            if (response.ok) {
+                return response.text(); // Getform might not always return JSON, so we'll use text()
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
         .then(data => {
-            console.log('Success:', data);
+            console.log('Data:', data);
             loader.style.display = 'none';
             thankYouMessage.style.display = 'block';
             document.querySelector('.container').scrollIntoView({ behavior: "smooth", block: "end" });
         })
         .catch((error) => {
-            console.error('Error:', error);
+            console.error('Fetch error:', error);
             feedback.textContent = 'An error occurred. Please try again.';
             feedback.style.display = 'block';
             form.style.display = 'block'; // Show form back if there's an error
