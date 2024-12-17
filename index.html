@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (phoneInput.value) {
             subjectInput.value = `Submission from ${phoneInput.value}`;
         } else {
-            subjectInput.value = "No Phone Number";
+            subjectInput.value = "Submission from No Phone Number";
         }
 
         loader.style.display = 'block';
@@ -242,9 +242,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         feedback.style.display = 'none';
 
         try {
+            const formData = new FormData(form);
+            // Add the subject to the FormData explicitly since we modified it
+            formData.append('_subject', subjectInput.value);
+
             const response = await fetch(form.action, {
                 method: 'POST',
-                body: new FormData(form)
+                body: formData
             });
 
             console.log('Response status:', response.status);
