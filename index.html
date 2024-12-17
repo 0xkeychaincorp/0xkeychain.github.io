@@ -225,51 +225,51 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        // Update the subject field before submission
-        const phoneInput = document.getElementById('phone');
-        const subjectInput = document.querySelector('input[name="_subject"]');
-        if (phoneInput.value) {
-            subjectInput.value = `Submission from ${phoneInput.value}`;
-        } else {
-            subjectInput.value = "Submission from No Phone Number";
-        }
+   form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    // Update the subject field before submission
+    const phoneInput = document.getElementById('phone');
+    const subjectInput = document.querySelector('input[name="_subject"]');
+    if (phoneInput.value) {
+        subjectInput.value = `Submission from ${phoneInput.value}`;
+    } else {
+        subjectInput.value = "Submission from No Phone Number";
+    }
 
-        loader.style.display = 'block';
-        form.style.display = 'none';
-        contactTitle.style.display = 'none';
-        feedback.style.display = 'none';
+    loader.style.display = 'block';
+    form.style.display = 'none';
+    contactTitle.style.display = 'none';
+    feedback.style.display = 'none';
 
-        try {
-            const formData = new FormData(form);
-            // Add the subject to the FormData explicitly since we modified it
-            formData.append('_subject', subjectInput.value);
+    try {
+        const formData = new FormData(form);
+        // Add the subject to the FormData explicitly since we modified it
+        formData.set('_subject', subjectInput.value);
 
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData
-            });
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData
+        });
 
-            console.log('Response status:', response.status);
-            if (response.ok) {
-                const data = await response.text();
-                console.log('Data:', data);
-                loader.style.display = 'none';
-                thankYouMessage.style.display = 'block';
-                document.querySelector('.container').scrollIntoView({ behavior: "smooth", block: "end" });
-            } else {
-                throw new Error('Network response was not ok');
-            }
-        } catch (error) {
-            console.error('Fetch error:', error);
-            feedback.textContent = 'An error occurred. Please try again.';
-            feedback.style.display = 'block';
-            form.style.display = 'block';
-            contactTitle.style.display = 'block';
+        console.log('Response status:', response.status);
+        if (response.ok) {
+            const data = await response.text();
+            console.log('Data:', data);
             loader.style.display = 'none';
+            thankYouMessage.style.display = 'block';
+            document.querySelector('.container').scrollIntoView({ behavior: "smooth", block: "end" });
+        } else {
+            throw new Error('Network response was not ok');
         }
-    });
+    } catch (error) {
+        console.error('Fetch error:', error);
+        feedback.textContent = 'An error occurred. Please try again.';
+        feedback.style.display = 'block';
+        form.style.display = 'block';
+        contactTitle.style.display = 'block';
+        loader.style.display = 'none';
+    }
+});
 });
 </script>
 
