@@ -3,9 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keychain Advisory</title>
+    <title>0xKeychain</title>
     <style>
-        /* Your existing CSS here */
+        body {
+            background-color: #000317;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            color: white;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        p {
+            color: #a9a9a9;
+            font-size: 1em;
+            margin-top: 0;
+        }
+        img {
+            max-width: 35%;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+        .services-title {
+            font-size: 2em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .service-box {
+            background-color: #131315;
+            margin: 10px;
+            padding: 15px;
+            width: calc(100% - 40px);
+            max-width: 800px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            height: 80px;
+            transition: height 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        .service-box h3 {
+            color: white;
+            font-size: 1.25em;
+            margin: 0;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+        .service-box p {
+            color: #a9a9a9;
+            font-size: 1em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            margin: 10px 0 0 0;
+            text-align: center;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .service-box::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            color: #013E7C;
+            font-size: 15px;
+        }
+        .service-box.expanded::after {
+            content: '▲';
+        }
+        .service-box.expanded {
+            height: auto;
+        }
+        .service-box.expanded p {
+            opacity: 1;
+            max-height: 500px;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+        form {
+            background-color: #131315;
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        form input, form textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 16px;
+            border: 1px solid #a9a9a9;
+            background-color: #131315;
+            color: #a9a9a9;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        form input::placeholder, form textarea::placeholder {
+            color: #a9a9a9;
+            opacity: 1;
+        }
+        form input:focus::placeholder, form textarea:focus::placeholder {
+            color: transparent;
+        }
+        form textarea {
+            height: 150px;
+        }
+        form button {
+            background: #013E7C;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+            font-size: 1.2em;
+        }
+        #formFeedback {
+            display: none;
+            color: white;
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #thankYouMessage {
+            font-size: 1.5em;
+            padding: 40px 0;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -13,7 +176,7 @@
 <div class="container">
     <h1>Keychain Advisory</h1>
     <p>Secure your digital future</p>
-    <img src="lock.jpg" alt="Keychain Advisory Logo">
+    <img src="lock.jpg" alt="0xKeychain Logo">
     <h2 class="services-title">Services</h2>
     <div class="services-container">
         <div class="service-box">
@@ -34,11 +197,11 @@
         </div>
     </div>
     <h2 id="contactTitle" class="contact-title">Contact Now</h2>
-    <form id="contactForm" onsubmit="event.preventDefault(); submitGoogleForm();">
-        <input type="text" id="name" name="entry.41306176" required placeholder="Name">
-        <input type="email" id="email" name="entry.706026261" required placeholder="Email">
-        <input type="tel" id="phone" name="entry.1023873623" placeholder="Phone Number">
-        <textarea id="message" name="entry.685677420" required placeholder="Message"></textarea>
+    <form id="contactForm" action="https://formsubmit.co/el/paheti" method="POST" enctype="multipart/form-data">
+        <input type="text" id="name" name="name" required placeholder="Name">
+        <input type="email" id="email" name="email" required placeholder="Email">
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+        <textarea id="message" name="message" required placeholder="Message"></textarea>
         <button type="submit">Send</button>
     </form>
     <div id="formFeedback"></div>
@@ -61,31 +224,38 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 
-    function submitGoogleForm() {
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
         loader.style.display = 'block';
         form.style.display = 'none';
         contactTitle.style.display = 'none';
         feedback.style.display = 'none';
 
-        let formData = new FormData(form);
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form)
+            });
 
-        fetch('https://docs.google.com/forms/d/e/1FAIpQLSfcf1UQR9ohELjalprc9-qCVDz8v8IqHVbd413yJDmReExi0Q/formResponse', {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
-        }).then(() => {
-            loader.style.display = 'none';
-            thankYouMessage.style.display = 'block';
-            document.querySelector('.container').scrollIntoView({ behavior: "smooth", block: "end" });
-        }).catch((error) => {
-            console.error('Form submission error:', error);
+            console.log('Response status:', response.status);
+            if (response.ok) {
+                const data = await response.text();
+                console.log('Data:', data);
+                loader.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+                document.querySelector('.container').scrollIntoView({ behavior: "smooth", block: "end" });
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
             feedback.textContent = 'An error occurred. Please try again.';
             feedback.style.display = 'block';
             form.style.display = 'block';
             contactTitle.style.display = 'block';
             loader.style.display = 'none';
-        });
-    }
+        }
+    });
 });
 </script>
 
