@@ -199,9 +199,10 @@
     <h2 id="contactTitle" class="contact-title">Contact Now</h2>
     <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="ec742461-b106-4c5e-8450-e2737d9102cd">
+        <input type="hidden" name="subject" id="subject" value="Submission from ">
         <input type="text" id="name" name="name" required placeholder="Name">
         <input type="email" id="email" name="email" required placeholder="Email">
-        <input type="tel" id="phone" name="subject" placeholder="Phone Number" value="Submission from ">
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number">
         <textarea id="message" name="message" required placeholder="Message"></textarea>
         <button type="submit">Send</button>
     </form>
@@ -227,11 +228,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        const phoneInput = document.getElementById('phone');
-        if (phoneInput.value) {
-            phoneInput.value = `Submission from ${phoneInput.value}`;
+        const nameInput = document.getElementById('name');
+        const subjectInput = document.getElementById('subject');
+        
+        if (nameInput.value) {
+            subjectInput.value = `Submission from ${nameInput.value}`;
         } else {
-            phoneInput.value = "Submission from No Phone Number";
+            subjectInput.value = "Submission from Anonymous";
         }
 
         loader.style.display = 'block';
