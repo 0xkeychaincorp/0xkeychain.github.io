@@ -201,6 +201,7 @@
         <input type="text" id="name" name="name" required placeholder="Name">
         <input type="email" id="email" name="email" required placeholder="Email">
         <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+        <input type="hidden" name="_subject" value="Submission from ">
         <textarea id="message" name="message" required placeholder="Message"></textarea>
         <button type="submit">Send</button>
     </form>
@@ -226,6 +227,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        // Update the subject field before submission
+        const phoneInput = document.getElementById('phone');
+        const subjectInput = document.querySelector('input[name="_subject"]');
+        if (phoneInput.value) {
+            subjectInput.value = `Submission from ${phoneInput.value}`;
+        } else {
+            subjectInput.value = "No Phone Number";
+        }
+
         loader.style.display = 'block';
         form.style.display = 'none';
         contactTitle.style.display = 'none';
