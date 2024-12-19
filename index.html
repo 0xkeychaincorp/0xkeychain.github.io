@@ -40,9 +40,9 @@
             height: auto;
             margin: 20px auto;
             display: block;
-            animation: floating 3s ease-in-out infinite;  /* Added animation */
+            animation: floating 3s ease-in-out infinite;
         }
-        @keyframes floating {  /* Added keyframes for animation */
+        @keyframes floating {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
@@ -174,6 +174,11 @@
             padding: 40px 0;
             display: none;
         }
+        .copyright {
+            color: #a9a9a9;
+            font-size: 0.7em;
+            margin: 20px 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -214,6 +219,7 @@
     <div id="formFeedback"></div>
     <div id="loader" style="display: none;"></div>
     <div id="thankYouMessage" style="display: none;">Thank you, we will contact you shortly.</div>
+    <p class="copyright">&copy; Keychain Advisory - All rights reserved</p>
 </div>
 
 <script>
