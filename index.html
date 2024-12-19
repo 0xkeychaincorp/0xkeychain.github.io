@@ -40,6 +40,11 @@
             height: auto;
             margin: 20px auto;
             display: block;
+            animation: floating 3s ease-in-out infinite;  /* Added animation */
+        }
+        @keyframes floating {  /* Added keyframes for animation */
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         .services-title {
             font-size: 2em;
