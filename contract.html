@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Keychain Advisory - Expert services in digital wallet setup, portfolio management, and blockchain security.">
+    <title>Contract - Keychain Advisory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000317;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            color: white;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        p {
+            color: #a9a9a9;
+            font-size: 1em;
+            margin-top: 0;
+        }
+        #signature-pad canvas {
+            border: 1px solid #a9a9a9;
+            background: white;
+            width: 100%;
+            height: 200px;
+        }
+        button {
+            background: #013E7C;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            font-size: 1.2em;
+        }
+        .signature-pad--footer {
+            margin-top: 10px;
+        }
+        .signature-pad--footer button {
+            background: #a9a9a9;
+            margin: 0 5px;
+            padding: 5px 10px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Keychain Advisory Contract</h1>
+    <p>Between:<br>
+    Keychain Advisory<br>
+    AND</p>
+    
+    <p><strong>1. Services Provided:</strong><br>
+    Wallet Setup: Assistance in setting up and securing digital wallets.<br>
+    Portfolio Management: Advisory services on managing and optimizing digital asset portfolios.<br>
+    Exchanges and DeFi: Guidance on navigating cryptocurrency exchanges and decentralized finance platforms.<br>
+    Security Practices: Implementation of best practices for digital asset security.</p>
+
+    <p><strong>2. Payment:</strong><br>
+    Fees: As outlined in the attached schedule or as agreed upon in writing.<br>
+    Payment Terms:</p>
+
+    <p><strong>3. Limitation of Liability:</strong><br>
+    The Company shall not be liable for any damages, loss, or injury arising out of or related to the services provided, whether direct, indirect, incidental, or consequential, including but not limited to loss of data, loss of profits, or loss of use. This includes any claims based on errors, omissions, or negligence. The Client agrees to this limitation of liability as a fundamental term of this contract.</p>
+
+    <p><strong>4. Indemnification:</strong><br>
+    The Client agrees to indemnify, defend, and hold harmless the Company from any and all claims, liabilities, damages, losses, or expenses, including attorney's fees, arising from or related to the Client's use of the services provided under this contract.</p>
+
+    <p><strong>5. Confidentiality:</strong><br>
+    Both parties agree to maintain the confidentiality of any proprietary or sensitive information exchanged during the course of this contract.</p>
+
+    <h2>Signatures:</h2>
+    <p>By signing below, the Client acknowledges reading, understanding, and agreeing to all terms and conditions of this contract.</p>
+
+    <form id="contractForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="1948909c-e0d5-41fb-a7aa-be5cc150706c">
+        <input type="hidden" name="subject" value="Signed Contract from Client">
+        <input type="text" name="clientName" placeholder="Client Name" required>
+        <input type="email" name="clientEmail" placeholder="Client Email" required>
+        <p>Client Signature:</p>
+        <div id="signature-pad" class="signature-pad">
+            <div class="signature-pad--body">
+                <canvas></canvas>
+            </div>
+            <div class="signature-pad--footer">
+                <button type="button" class="button clear" data-action="clear">Clear</button>
+                <button type="button" class="button" data-action="undo">Undo</button>
+            </div>
+        </div>
+        <input type="hidden" id="signatureData" name="signatureData">
+        <button type="submit">Submit Contract</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@latest/dist/signature_pad.min.js"></script>
+<script>
+    var wrapper = document.getElementById("signature-pad");
+    var clearButton = wrapper.querySelector("[data-action=clear]");
+    var undoButton = wrapper.querySelector("[data-action=undo]");
+    var canvas = wrapper.querySelector("canvas");
+    
+    var signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgb(255, 255, 255)'
+    });
+
+    clearButton.addEventListener("click", function (event) {
+        signaturePad.clear();
+    });
+
+    undoButton.addEventListener("click", function (event) {
+        var data = signaturePad.toData();
+        if (data) {
+            data.pop(); // remove the last dot or line
+            signaturePad.fromData(data);
+        }
+    });
+
+    document.getElementById('contractForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var signatureData = signaturePad.toDataURL();
+        document.getElementById('signatureData').value = signatureData;
+
+        var formData = new FormData(this);
+        fetch(this.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Contract submitted successfully!'); // Handle success
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('There was an error submitting the contract. Please try again.');
+        });
+    });
+</script>
+
+</body>
+</html>
