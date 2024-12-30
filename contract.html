@@ -103,7 +103,7 @@
         <p>Client Signature:</p>
         <div id="signature-pad" class="signature-pad">
             <div class="signature-pad--body">
-                <canvas></canvas>
+                <canvas id="signatureCanvas"></canvas>
             </div>
             <div class="signature-pad--footer">
                 <button type="button" class="button clear" data-action="clear">Clear</button>
@@ -116,11 +116,12 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@latest/dist/signature_pad.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
     var wrapper = document.getElementById("signature-pad");
     var clearButton = wrapper.querySelector("[data-action=clear]");
     var undoButton = wrapper.querySelector("[data-action=undo]");
-    var canvas = wrapper.querySelector("canvas");
+    var canvas = document.getElementById("signatureCanvas");
     
     var signaturePad = new SignaturePad(canvas, {
         backgroundColor: 'rgb(255, 255, 255)'
@@ -140,21 +141,47 @@
 
     document.getElementById('contractForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        var signatureData = signaturePad.toDataURL();
+        
+        // Capture signature
+        var signatureData = signaturePad.toDataURL('image/png');
         document.getElementById('signatureData').value = signatureData;
 
-        var formData = new FormData(this);
-        fetch(this.action, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Contract submitted successfully!'); // Handle success
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('There was an error submitting the contract. Please try again.');
+        // Capture the contract content and replace canvas with image
+        var contractContent = document.querySelector('.container').cloneNode(true);
+        var signatureImage = new Image();
+        signatureImage.src = signatureData;
+        var canvasContainer = contractContent.querySelector('#signature-pad .signature-pad--body');
+        canvasContainer.innerHTML = ''; // Clear canvas
+        canvasContainer.appendChild(signatureImage);
+
+        // Use jsPDF to create a PDF from the modified HTML
+        var doc = new jspdf.jsPDF('p', 'pt', 'a4');
+        doc.html(contractContent, {
+            callback: function (pdf) {
+                var pdfOutput = pdf.output('datauristring');
+                
+                // Attach the PDF to the form data
+                var formData = new FormData(this);
+                formData.append('pdf', pdfOutput);
+
+                // Send the form data including the PDF
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Contract submitted successfully!'); 
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('There was an error submitting the contract. Please try again.');
+                });
+            },
+            x: 15,
+            y: 15,
+            width: 550, // A4 dimensions
+            windowWidth: 800
         });
     });
 </script>
